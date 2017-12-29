@@ -1,0 +1,57 @@
+/* ==========================================================================
+Register Font
+========================================================================== */
+
+@mixin font-face-register($fontName, $path) {
+  @font-face {
+    font-family: $fontName;
+    src: url('../fonts/'+ $path +'.eot');
+    src: url('../fonts/'+ $path +'.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/'+ $path +'.woff') format('woff'),
+         url('../fonts/'+ $path +'.ttf')  format('truetype'),
+         url('../fonts/'+ $path +'.svg#svgFontName') format('svg');
+  }
+}
+
+// @include font-face-register('Station', 'Station');
+
+@mixin font-weight($style) {
+	@if $style == "light" {
+		font-weight: 300;
+	}
+
+	@if ($style == "normal" or $style == "regular") {
+		font-weight: 400;
+	}
+
+	@if $style == "bold" {
+		font-weight: 700;
+	}
+
+	@if $style == "italic" {
+		font-family: $alt-font;
+		font-weight: normal;
+		font-style: italic;
+	}
+}
+
+@mixin main-font {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+@mixin sec-font {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+
+@mixin textantialiasing() {
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+
+/// FONT ICONS
+
+.icon {
+	font-family: "Custom Icons";
+}

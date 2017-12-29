@@ -1,0 +1,38 @@
+
+/* ==========================================================================
+
+Easings
+
+========================================================================== */
+
+
+$ease-back: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+$ease-back-strong: cubic-bezier(0.175, 0.885, 0.32, 1.6);
+
+$ease-out-quart: cubic-bezier(0.165, 0.840, 0.440, 1.000);
+$ease-in-out-quart: cubic-bezier(0.77, 0, 0.175, 1);
+
+// eases a little in but much out
+$ease-in-out: cubic-bezier(0.420, 0.000, 0.175, 1.000);
+
+$ease-out-slow: cubic-bezier(.11,.74,.35,.92);
+
+$ease-out-superslow: cubic-bezier(0.09, 0.82, 0.18, 0.96);
+
+
+
+
+/* ==========================================================================
+
+Transitions
+
+========================================================================== */
+
+@mixin fast-transition($prop: all) {
+	transition: $prop 175ms ease-in-out;
+}
+
+
+@mixin base-transition($prop: all) {
+	transition: $prop 300ms ease-in-out;
+}

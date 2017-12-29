@@ -1,0 +1,42 @@
+doctype html
+html
+	head
+		title My Title
+	body
+		h1 hello2
+		h2 tell
+		section
+			h3 My Second Title <em>inside html</em> testing
+			p has some sort of <a href="#test">I'm a link</a>. Pug !!
+			// I'm a comment
+			//- I'm invisible !!!
+			p
+				| I'm just plain
+				a(href="#") test
+				| hello
+
+			p.
+				I'm Just plain
+				<a href="#">link I </a>
+
+		h3 Saving space (inline structure)
+		ul.list: li: a: img(src="img.png")
+
+
+
+		- var books = ["Book 1", "Book 2", "Book 3"]
+		ul
+			for book in books
+				li= book
+			else
+				li sorry, no books!
+
+
+		p
+			- var myBool = false
+			if myBool
+				strong I'm true
+			else
+				strong I'm false
+
+

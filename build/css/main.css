@@ -1,0 +1,398 @@
+/* ==========================================================================
+
+Easings
+
+========================================================================== */
+/* ==========================================================================
+
+Transitions
+
+========================================================================== */
+/* ==========================================================================
+Register Font
+========================================================================== */
+.icon {
+  font-family: "Custom Icons";
+}
+
+@font-face {
+  font-family: "custom_font";
+  src: url("../fonts/custom_font.eot");
+  src: url("../fonts/custom_font.eot?#iefix") format("eot"), url("../fonts/custom_font.woff2") format("woff2"), url("../fonts/custom_font.woff") format("woff"), url("../fonts/custom_font.ttf") format("truetype"), url("../fonts/custom_font.svg#custom_font") format("svg");
+}
+
+.icon:before {
+  font-family: "custom_font";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  /* speak: none; only necessary if not using the private unicode range (firstGlyph option) */
+  text-decoration: none;
+  text-transform: none;
+}
+
+.icon-mail:before {
+  content: "\E001";
+}
+
+.icon-send:before {
+  content: "\E002";
+}
+
+/* ==========================================================================
+
+
+
+      HELPERS CLASSES
+
+
+
+========================================================================== */
+/*
+ * Hide visually and from screen readers:
+ */
+.hidden {
+  display: none !important;
+}
+
+/*
+ * Hide only visually, but have it available for screen readers:
+ * http://snook.ca/archives/html_and_css/hiding-content-for-accessibility
+ */
+.visuallyhidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+/* ==========================================================================
+
+
+
+      MIXIN
+
+
+
+========================================================================== */
+/* ==========================================================================
+Full layout
+========================================================================== */
+/* ==========================================================================
+Clearfix
+========================================================================== */
+/* ==========================================================================
+Rem value
+========================================================================== */
+/* ==========================================================================
+PX to REM
+========================================================================== */
+* {
+  font: inherit;
+  color: inherit;
+  line-height: inherit;
+  text-decoration: inherit;
+  margin: 0;
+  padding: 0;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+*,
+*:before,
+*:after {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+html {
+  color: #000;
+  background: #FFF;
+}
+
+figure {
+  -webkit-margin-start: 0;
+  -webkit-margin-end: 0;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+nav,
+section,
+summary {
+  display: block;
+}
+
+audio,
+canvas,
+video {
+  display: inline-block;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+fieldset,
+img {
+  border: 0;
+}
+
+del,
+ins {
+  text-decoration: none;
+}
+
+li {
+  list-style: none;
+}
+
+caption,
+th {
+  text-align: left;
+}
+
+q:before,
+q:after {
+  content: '';
+}
+
+abbr,
+acronym {
+  border: 0;
+  text-decoration: none;
+  font-variant: normal;
+}
+
+sup {
+  vertical-align: baseline;
+}
+
+sub {
+  vertical-align: baseline;
+}
+
+legend {
+  color: inherit;
+  *color: #000;
+}
+
+iframe {
+  border: 0;
+}
+
+button,
+input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+  background: transparent;
+  -webkit-appearance: button;
+  cursor: pointer;
+  border: 0;
+}
+
+button[disabled],
+input[disabled] {
+  cursor: default;
+}
+
+input[type="search"] {
+  -webkit-appearance: textfield;
+}
+
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+
+textarea {
+  overflow: auto;
+  vertical-align: top;
+}
+
+code,
+kbd,
+pre,
+samp {
+  font-family: monospace, serif;
+  font-size: 1em;
+}
+
+pre {
+  white-space: pre;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.g_container {
+  width: 100%;
+  max-width: 1124px;
+  margin: 0 auto;
+}
+
+.g_short_container {
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+/* stylelint-disable selector-no-type */
+html {
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+  width: 100%;
+  overflow-x: hidden;
+  font-size: 16px;
+  font-size: 100%;
+  font-display: swap;
+  -webkit-text-size-adjust: 100%;
+     -moz-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
+          text-size-adjust: 100%;
+}
+
+@media (max-width: 1280px) {
+  html {
+    font-size: 90%;
+  }
+}
+
+@media (max-width: 750px) {
+  html {
+    font-size: 85%;
+  }
+}
+
+html.is-mobileNav-visible {
+  overflow: hidden;
+}
+
+/* stylelint-disable selector-no-vendor-prefix */
+::-moz-selection {
+  background-color: rgba(255, 71, 71, 0.2);
+}
+
+::selection {
+  background-color: rgba(255, 71, 71, 0.2);
+}
+
+/* stylelint-enable selector-no-vendor-prefix */
+html, body {
+  background-color: #F5F5F5;
+  width: 100%;
+  color: #1C1C1C;
+}
+
+body {
+  font-size: 16px;
+  font-size: 1rem;
+  line-height: 1.6;
+  -webkit-hyphens: auto;
+      -ms-hyphens: auto;
+          hyphens: auto;
+}
+
+body,
+input,
+select,
+button,
+textarea {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.logo {
+  text-decoration: none;
+}
+
+a:active {
+  outline: none;
+}
+
+a:selected {
+  border: none;
+  outline: none;
+}
+
+*:focus {
+  outline: none;
+}
+
+abbr {
+  border-bottom: 1px dotted gray;
+}
+
+p sup {
+  position: relative;
+  top: -0.75ex;
+}
+
+p sub {
+  position: relative;
+  top: 0.5ex;
+}
+
+button {
+  cursor: pointer;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+/* stylelint-enable selector-no-type */
+.logo {
+  display: inline-block;
+  position: absolute;
+  width: 150px;
+  left: 50%;
+  top: 20px;
+  margin-left: -75px;
+}
+
+.logo img {
+  width: 100%;
+}
+
+.subline {
+  position: absolute;
+  display: inline-block;
+  text-align: center;
+  margin: 0 auto;
+  left: 50%;
+  bottom: 5%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  color: white;
+  padding: 10px;
+  opacity: 0.3;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+}
+
+.subline:hover {
+  opacity: 1;
+}
+
+/*# sourceMappingURL=maps/main.css.map */

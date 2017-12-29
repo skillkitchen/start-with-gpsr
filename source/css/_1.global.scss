@@ -1,0 +1,146 @@
+
+
+/* stylelint-disable selector-no-type */
+html {
+	-ms-overflow-style: -ms-autohiding-scrollbar;
+
+	width: 100%;
+	overflow-x: hidden;
+
+	font-size: $base-font-size;
+	font-size: $base-font-size / 16px * 100%;
+
+	font-display: swap; //or optional? use a fallback font while the custom font isn’t available, but swap the custom font in as soon as it loads. currently work only in Chrome v60+
+
+	text-size-adjust: 100%;
+
+	@include tablet {
+		font-size: $base-font-size / 16px * 90%;
+	}
+
+	@include mobile {
+		font-size: $base-font-size / 16px * 85%;
+	}
+
+	@include mobile-portrait {
+		// font-size: $base-font-size / 16px * 80%;
+	}
+
+	&.is-mobileNav-visible {
+		overflow: hidden;
+	}
+}
+
+/* stylelint-disable selector-no-vendor-prefix */
+::-moz-selection {
+	background-color: rgba($c-highlight, 0.2);
+}
+
+::selection {
+	background-color: rgba($c-highlight, 0.2);
+}
+/* stylelint-enable selector-no-vendor-prefix */
+
+html, body {
+	background-color: $c-bg;
+	width: 100%;
+	color: $c-black;
+}
+
+body {
+	@include font-size($base-font-size);
+	line-height: $base-line-height;
+	hyphens: auto;
+}
+
+
+body,
+input,
+select,
+button,
+textarea {
+	@include textantialiasing;
+}
+
+.logo {
+	text-decoration: none;
+}
+
+// links
+a:active {
+	outline: none;
+}
+
+a:selected {
+	border: none;
+	outline: none;
+}
+
+*:focus {
+	outline: none;
+}
+
+abbr {
+	border-bottom: 1px dotted gray;
+}
+
+p sup {
+	position: relative;
+	top: -0.75ex;
+}
+
+p sub {
+	position: relative;
+	top: 0.5ex;
+}
+
+button {
+	cursor: pointer;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	@include main-font;
+}
+
+
+/* stylelint-enable selector-no-type */
+
+.logo {
+	$width: 150px;
+
+	display: inline-block;
+	position: absolute;
+	width: $width;
+	left: 50%;
+	top: 20px;
+	margin-left: -$width/2;
+
+	img {
+		width: 100%;
+	}
+}
+
+
+.subline {
+	position: absolute;
+	display: inline-block;
+	text-align: center;
+	margin: 0 auto;
+	left: 50%;
+	bottom: 5%;
+	transform: translateX(-50%);
+	color: white;
+	padding: 10px;
+	opacity: 0.3;
+	text-transform: uppercase;
+	font-weight: bold;
+	font-size: 11px;
+	letter-spacing: 0.1em;
+
+	&:hover {
+		opacity: 1;
+	}
+}
+
+
+
