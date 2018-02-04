@@ -5,14 +5,17 @@ null==d?void 0:d))},attrHooks:{type:{set:function(a,b){if(!o.radioValue&&"radio"
 
 define("lib/jquery", function(){});
 
+
 define(
 	'app/Main',[
 		'jquery'
-	], function($) {
+	], function(
+		$
+	) {
 
 	var Main = function(){};
 
-	Main.init = function(element) {
+	Main.prototype.init = function(element) {
 		console.log('Main.js is ready');
 	};
 

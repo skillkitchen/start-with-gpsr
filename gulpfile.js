@@ -11,7 +11,8 @@ var gulp = require('gulp'),
 	sourcemaps = require('gulp-sourcemaps'),
 	iconfont = require('gulp-iconfont'),
 	iconfontCss = require('gulp-iconfont-css'),
-	rjs = require('requirejs'),
+	requirejsOptimize = require('gulp-requirejs-optimize'),
+	connect = require('gulp-connect'),
 	pug = require('gulp-pug');
 
 var sassCache = {};
@@ -26,9 +27,9 @@ var PUG_SOURCE_DIR = SOURCE_DIR + '**/*.pug',
 var CSS_SOURCE_DIR = SOURCE_DIR + 'css/**/*.scss',
 	CSS_BUILD_DIR = BUILD_DIR + 'css/';
 
-var JS_SOURCE_DIR = SOURCE_DIR + 'js',
-	JS_REQUIRE_NAME = 'main',
-	JS_BUILD_DIR =  BUILD_DIR + 'js/ui.js';
+var JS_SOURCE_DIR = SOURCE_DIR + 'js/**/*.js',
+	JS_SOURCE_FILE = SOURCE_DIR + 'js/ui.js',
+	JS_BUILD_DIR =  BUILD_DIR + 'js';
 
 var JS_VENDOR_SOURCE_DIR = SOURCE_DIR + 'js/vendor/**/*.js',
 	JS_VENDOR_BUILD_DIR = BUILD_DIR + 'js/vendor';
@@ -43,6 +44,14 @@ var ICONS_CSS_DIR = '../../source/css/helpers/_icons.scss',
 	ICONS_SOURCE_DIR = SOURCE_DIR + 'icons/*.svg',
 	ICONS_BUILD_DIR = FONTS_BUILD_DIR;
 
+
+// TASK : Webserver / Connect
+gulp.task('connect', function() {
+  connect.server({
+    root: 'build',
+    livereload: true
+  });
+});
 
 // TASK : WEBFONT
 var fontName = 'custom_icon_font';
@@ -74,28 +83,23 @@ gulp.task('pug', function(done){
 	return gulp
 	.src(PUG_SOURCE_DIR)
 	.pipe(pug(pugOptions))
-	.pipe(gulp.dest(PUG_BUILD_DIR));
+	.pipe(gulp.dest(PUG_BUILD_DIR))
+	.pipe(connect.reload());
 
 	if(done) done();
 });
 
 // TASK : Require JS
-var requireConfig = {
-	baseUrl: JS_SOURCE_DIR,
-	name: 'ui',
-	out: JS_BUILD_DIR,
-	optimize: 'none',
-	// mainConfigFile: 'source/js/main.js'
-};
+gulp.task('requirejs', function () {
+    return gulp.src(JS_SOURCE_FILE)
+        .pipe(requirejsOptimize({
+            optimize: 'none'
+        }))
+        .pipe(gulp.dest(JS_BUILD_DIR))
+        .pipe(connect.reload());
 
-
-gulp.task('requirejs', function(cb){
-	rjs.optimize(requireConfig, function(buildResponse){
-		// console.log(buildResponse);
-		cb();
-	}, cb);
+        if(done) done();
 });
-
 
 // TASK : SASS
 var sassOptions = {
@@ -120,7 +124,8 @@ gulp.task('sass', function(done){
 		}
 	}))
 	.pipe(sourcemaps.write('maps'))
-	.pipe(gulp.dest(CSS_BUILD_DIR));
+	.pipe(gulp.dest(CSS_BUILD_DIR))
+	.pipe(connect.reload());
 
 	if(done) done();
 });
@@ -179,7 +184,9 @@ gulp.task('watch', gulp.parallel(
 	'watch-pug',
 	'watch-sass',
 	'watch-js',
+	'connect'
 ));
+
 
 
 // TASK : CLEAN

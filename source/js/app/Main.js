@@ -1,11 +1,14 @@
+
 define(
 	[
 		'jquery'
-	], function($) {
+	], function(
+		$
+	) {
 
 	var Main = function(){};
 
-	Main.init = function(element) {
+	Main.prototype.init = function(element) {
 		console.log('Main.js is ready');
 	};
 
