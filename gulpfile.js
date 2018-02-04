@@ -25,6 +25,7 @@ var PUG_SOURCE_DIR = SOURCE_DIR + '**/*.pug',
 	PUG_BUILD_DIR = BUILD_DIR;
 
 var CSS_SOURCE_DIR = SOURCE_DIR + 'css/**/*.scss',
+	ALL_SCSS = SOURCE_DIR + '**/*.scss',
 	CSS_BUILD_DIR = BUILD_DIR + 'css/';
 
 var JS_SOURCE_DIR = SOURCE_DIR + 'js/**/*.js',
@@ -174,7 +175,7 @@ gulp.task('watch-pug', function(){
 	return gulp.watch(PUG_SOURCE_DIR, gulp.series('pug'))
 });
 gulp.task('watch-sass', function(){
-	return gulp.watch(CSS_SOURCE_DIR, gulp.series('sass'))
+	return gulp.watch(ALL_SCSS, gulp.series('sass'))
 });
 gulp.task('watch-js', function(){
 	return gulp.watch(JS_SOURCE_DIR, gulp.series('requirejs'))
