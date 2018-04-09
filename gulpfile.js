@@ -1,11 +1,17 @@
 // REQUIRE
 var fs = require('fs');
 
+var PARAMS = {
+	php: true,
+}
+
 var gulp = require('gulp'),
 	watch = require('gulp-watch'),
 	clean = require('gulp-clean'),
 	sass = require('gulp-sass'),
 	filter = require('gulp-filter'),
+	rename = require('gulp-rename'),
+	ifElse = require('gulp-if-else'),
 	importer = require('node-sass-globbing'),
 	autoprefixer = require('gulp-autoprefixer'),
 	sourcemaps = require('gulp-sourcemaps'),
@@ -13,7 +19,10 @@ var gulp = require('gulp'),
 	iconfontCss = require('gulp-iconfont-css'),
 	requirejsOptimize = require('gulp-requirejs-optimize'),
 	connect = require('gulp-connect'),
-	pug = require('gulp-pug');
+	connectPHP = require('gulp-connect-php'),
+	pug = require('gulp-pug'),
+	phpBrowserSync = require('browser-sync'),
+	pugPHPFilter = require('pug-php-filter');
 
 var sassCache = {};
 
@@ -35,6 +44,9 @@ var JS_SOURCE_DIR = SOURCE_DIR + 'js/**/*.js',
 var JS_VENDOR_SOURCE_DIR = SOURCE_DIR + 'js/vendor/**/*.js',
 	JS_VENDOR_BUILD_DIR = BUILD_DIR + 'js/vendor';
 
+var PHP_SOURCE_DIR = SOURCE_DIR + 'php/**/*',
+	PHP_BUILD_DIR = BUILD_DIR;
+
 var IMG_SOURCE_DIR = SOURCE_DIR + 'img/**/*',
 	IMG_BUILD_DIR = BUILD_DIR + 'img/';
 
@@ -47,12 +59,26 @@ var ICONS_CSS_DIR = '../../source/css/helpers/_icons.scss',
 
 
 // TASK : Webserver / Connect
-gulp.task('connect', function() {
-  connect.server({
-    root: 'build',
-    livereload: true
-  });
-});
+if(PARAMS.php) {
+	gulp.task('connect', function() {
+		connectPHP.server({base: 'build/'}, function (){
+			phpBrowserSync({
+				proxy: '127.0.0.1:8000'
+			});
+
+			gulp.watch(['**/*.pug', '**/*.scss', '**/*.js']).on('change', function () {
+				phpBrowserSync.reload();
+			});
+		});
+	});
+} else {
+	gulp.task('connect', function() {
+		connect.server({
+			root: 'build',
+			livereload: true
+		});
+	});
+}
 
 // TASK : WEBFONT
 var fontName = 'custom_icon_font';
@@ -76,30 +102,50 @@ gulp.task('iconfont', function(done){
 });
 
 // TASK : pug
-var pugOptions = {
-	pretty: true
+
+if(PARAMS.php) {
+	gulp.task('pug', function(done) {
+		return gulp.src(PUG_SOURCE_DIR)
+		.pipe( pug({
+			pretty: "\t",
+			filters: {
+			 php: pugPHPFilter
+		}
+	}) )
+		.pipe(rename(function (path) {
+			path.extname = ".php"
+		}))
+		.pipe(gulp.dest(PUG_BUILD_DIR))
+		.pipe(connect.reload());
+
+		if(done) done();
+	});
+} else {
+	var pugOptions = {
+		pretty: true
+	}
+
+	gulp.task('pug', function(done){
+		return gulp
+		.src(PUG_SOURCE_DIR)
+		.pipe(pug(pugOptions))
+		.pipe(gulp.dest(PUG_BUILD_DIR))
+		.pipe(connect.reload());
+
+		if(done) done();
+	});
 }
-
-gulp.task('pug', function(done){
-	return gulp
-	.src(PUG_SOURCE_DIR)
-	.pipe(pug(pugOptions))
-	.pipe(gulp.dest(PUG_BUILD_DIR))
-	.pipe(connect.reload());
-
-	if(done) done();
-});
 
 // TASK : Require JS
 gulp.task('requirejs', function () {
-    return gulp.src(JS_SOURCE_FILE)
-        .pipe(requirejsOptimize({
-            optimize: 'none'
-        }))
-        .pipe(gulp.dest(JS_BUILD_DIR))
-        .pipe(connect.reload());
+	return gulp.src(JS_SOURCE_FILE)
+		.pipe(requirejsOptimize({
+		    optimize: 'none'
+		}))
+		.pipe(gulp.dest(JS_BUILD_DIR))
+		.pipe(connect.reload());
 
-        if(done) done();
+		if(done) done();
 });
 
 // TASK : SASS
@@ -166,7 +212,7 @@ gulp.task('copy-js_vendor', function(done){
 gulp.task('copy', gulp.parallel(
 	'copy-fonts',
 	'copy-js_vendor',
-	'copy-img',
+	'copy-img'
 ));
 
 
@@ -185,7 +231,7 @@ gulp.task('watch', gulp.parallel(
 	'watch-pug',
 	'watch-sass',
 	'watch-js',
-	'connect'
+	'connect',
 ));
 
 
@@ -202,8 +248,6 @@ gulp.task('clean-build', function(done){
 gulp.task('clean', gulp.series(
 	'clean-build',
 ));
-
-
 
 
 // INITS
