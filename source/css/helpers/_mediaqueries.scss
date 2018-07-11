@@ -14,6 +14,13 @@ $mq-site-width-max	   : 1920px !default;
 }
 
 
+
+@mixin mobile-only-portrait {
+	@media (max-width : $mq-mobile-portrait) and (orientation:portrait) {
+		@content;
+	}
+}
+
 @mixin mobile-portrait {
 	@media (max-width : $mq-mobile-portrait) {
 		@content;
